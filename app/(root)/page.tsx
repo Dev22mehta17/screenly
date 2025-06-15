@@ -2,9 +2,9 @@ import React from 'react'
 
 const Page = () => {
   return (
-    <div className='text-2xl font-karla'>
+    <main className="wrapper page">
       hii welcome to my new project
-    </div>
+    </main>
   )
 }
 
