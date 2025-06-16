@@ -1,3 +1,6 @@
+import { ICONS } from "@/constants/index"
+import Image from "@/node_modules/next/image"
+import Link from "@/node_modules/next/link"
 
 const Header = ({subHeader,title,userImg}:SharedHeaderProps) => {
   return (
@@ -14,11 +17,27 @@ const Header = ({subHeader,title,userImg}:SharedHeaderProps) => {
                 </article>
             </div>
             <aside>
-                <link href="/upload">
-                    {/* <Image src="/assets/icons/upload.svg" alt="upload"width={16} height={16}/> */}
-                    <span>Upload A Video</span>
-                </link>
+               <Link href='/upload'>
+                <Image src='assets/icons/upload.svg' alt="upload" width={16} height={16} />
+                <span>Upload A Video</span>
+               </Link>
+
+               <div className="record">
+               <button className="primary-btn">
+                <Image src={ICONS.record} alt="record" width={16} height={16} />
+                <span>Record A Video</span>
+               </button>
+               </div>
+              
             </aside>
+        </section>
+        <section className="search-filter">
+            <div className="search">
+                <input type="text" placeholder="Search for videos, tags, folders..." />
+                <Image src="/assets/icons/search.svg" alt="search" width={16} height={16} />
+            </div>
+            {`<Dropdown List/>`}
+
         </section>
     </header>
   )
