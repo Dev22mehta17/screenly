@@ -1,6 +1,7 @@
 import { ICONS } from "@/constants/index"
 import Image from "@/node_modules/next/image"
 import Link from "@/node_modules/next/link"
+import DropdownList from "./DropdownList"
 
 const Header = ({subHeader,title,userImg}:SharedHeaderProps) => {
   return (
@@ -8,7 +9,7 @@ const Header = ({subHeader,title,userImg}:SharedHeaderProps) => {
         <section className="header-container">
             <div className="details">
                 {userImg && (
-                    <Image src={userImg || 'assets/images/dummy.jpeg'} alt="user" width={66} height={66} className="rounded-full"/>
+                    <Image src={userImg } alt="user" width={66} height={66} className="rounded-full"/>
                     )
                 }
                 <article>
@@ -18,7 +19,7 @@ const Header = ({subHeader,title,userImg}:SharedHeaderProps) => {
             </div>
             <aside>
                <Link href='/upload'>
-                <Image src='assets/icons/upload.svg' alt="upload" width={16} height={16} />
+                <Image src='/assets/icons/upload.svg' alt="upload" width={16} height={16} />
                 <span>Upload A Video</span>
                </Link>
 
@@ -36,7 +37,7 @@ const Header = ({subHeader,title,userImg}:SharedHeaderProps) => {
                 <input type="text" placeholder="Search for videos, tags, folders..." />
                 <Image src="/assets/icons/search.svg" alt="search" width={16} height={16} />
             </div>
-            {`<Dropdown List/>`}
+            <DropdownList/>
 
         </section>
     </header>
