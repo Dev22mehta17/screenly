@@ -2,7 +2,9 @@ import React from 'react'
 
 const page = () => {
   return (
-    <div>page</div>
+   <main className='wrapper page'>
+    VIDEO DETAILS PAGE
+   </main>
   )
 }
 
