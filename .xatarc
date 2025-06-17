@@ -1,0 +1,6 @@
+{
+  "databaseURL": "https://Dev-Mehta-s-workspace-vjkjq7.us-east-1.xata.sh/db/Dev-Screenly",
+  "codegen": {
+    "output": "src/xata.ts"
+  }
+}
