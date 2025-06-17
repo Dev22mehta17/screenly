@@ -34,9 +34,24 @@ const page = () => {
         </div>
             <p>© Screenlyy {(new Date()).getFullYear()} </p>
       </aside>
+      <aside className='google-sign-in'>
+        <section>
+          <Link href="/">
+          <Image src="/assets/icons/logo.svg" alt="logo" width={40} height={40} />
+          <h1>Screenly</h1>
+          </Link>
+          <p>Create and share your very first <span>Screenly video</span> in no time!!</p>
+          <button>
+            <Image src="/assets/icons/google.svg" alt="google" width={22} height={32} />
+            <span>Sign in with Google</span>
+          </button>
+        </section>
+
+      </aside>
+      <div className='overlay'/>
 
     </main>
-  )
+  )  
 }
 
 export default page
