@@ -1,9 +1,15 @@
+'use client'
+
+import { authClient } from '@/lib/auth-client'
 import Image from '@/node_modules/next/image'
 import Link from '@/node_modules/next/link'
 import React from 'react'
 import { arrayBuffer } from 'stream/consumers'
 
 const page = () => {
+  const handleSignIn =async()=>{
+    return await authClient.signIn.social({provider: 'google'})
+  }
   return (
     <main className='sign-in'>
       <aside className='testimonial'>
@@ -41,7 +47,7 @@ const page = () => {
           <h1>Screenly</h1>
           </Link>
           <p>Create and share your very first <span>Screenly video</span> in no time!!</p>
-          <button>
+          <button onClick={handleSignIn}>
             <Image src="/assets/icons/google.svg" alt="google" width={22} height={32} />
             <span>Sign in with Google</span>
           </button>
