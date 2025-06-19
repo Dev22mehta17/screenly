@@ -1,9 +1,9 @@
 import { NextRequest,NextResponse } from "./node_modules/next/server";
 import { auth } from "@/lib/auth"
-import { headers } from "./node_modules/next/headers";
+// import { headers } from "./node_modules/next/headers";
 
 export async function middleware(request: NextRequest, response: NextResponse){
-    const session=await auth.api.getSession({
+    const session = await auth.api.getSession({
         headers: request.headers,
     });
     if(!session){

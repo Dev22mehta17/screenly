@@ -5,7 +5,8 @@ import FormField from '@/components/FormField'
 import { MAX_THUMBNAIL_SIZE, MAX_VIDEO_SIZE } from '@/constants/index'
 import { getThumbnailUploadUrl, getVideoUploadUrl, saveVideoDetails } from '@/lib/actions/video'
 import { useFileInput } from '@/lib/hooks/useFileInput'
-import { useRouter } from '@/node_modules/next/router'
+import { useRouter } from '@/node_modules/next/navigation'
+// import { useRouter } from '@/node_modules/next/router'
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
 
 
@@ -25,7 +26,7 @@ const uploadFileToBunny = (
       if (!response.ok)
         throw new Error(`Upload failed with status ${response.status}`);
     });
-
+ 
 
 const page = () => {
     const router = useRouter();
