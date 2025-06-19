@@ -66,7 +66,7 @@ const page = () => {
         setisSubmitting(true);
 
         try{
-            if(!video.file || thumbnail.file){
+            if(!video.file || !thumbnail.file){
                 setError('Please upload video and thumbnail ');
                 return;
             }
@@ -95,18 +95,18 @@ const page = () => {
               if (!thumbnailUploadUrl || !thumbnailCdnUrl || !thumbnailAccessKey)
                 throw new Error("Failed to get thumbnail upload credentials");
         
-              await uploadFileToBunny(
-                thumbnail.file,
-                thumbnailUploadUrl,
-                thumbnailAccessKey
-              );
-        
-              await saveVideoDetails({
-                videoId,
-                thumbnailUrl: thumbnailCdnUrl,
-                ...formData,
-                duration: videoDuration
-              });
+                await uploadFileToBunny(
+                    thumbnail.file,
+                    thumbnailUploadUrl,
+                    thumbnailAccessKey
+                  );
+            
+                  await saveVideoDetails({
+                    videoId,
+                    thumbnailUrl: thumbnailCdnUrl,
+                    ...formData,
+                    duration: videoDuration,
+                  });
         
               router.push(`/video/${videoId}`);
         }
@@ -146,7 +146,7 @@ const page = () => {
         file={video.file}
         previewUrl={video.previewUrl}
         inputRef={video.inputRef}
-        onChange={video.handleInputChange}
+        onChange={video.handleFileChange}
         onReset={video.resetFile}
         type="video"
         />
@@ -158,7 +158,7 @@ const page = () => {
         file={thumbnail.file}
         previewUrl={thumbnail.previewUrl}
         inputRef={thumbnail.inputRef}
-        onChange={thumbnail.handleInputChange}
+        onChange={thumbnail.handleFileChange}
         onReset={thumbnail.resetFile}
         type="image"
         />
