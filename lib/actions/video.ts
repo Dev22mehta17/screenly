@@ -1,6 +1,9 @@
 'use server'
 
 import { BUNNY } from "@/constants/index"
+import { db } from "@/drizzle/db"
+import { videos } from "@/drizzle/schema"
+import { revalidatePath } from "@/node_modules/next/cache"
 import { headers } from "@/node_modules/next/headers"
 import { auth } from "../auth"
 import { apiFetch ,getEnv, withErrorHandling } from "../utils"
@@ -22,6 +25,11 @@ const getSessionUserId=async():Promise<string>=>{
     return session.user.id;
 }
 
+const revalidatePaths = (paths: string[]) => {
+    paths.forEach((path) => revalidatePath(path));
+  };
+  
+
 export const getVideoUploadUrl = withErrorHandling(async () => {
     await getSessionUserId();
     const videoResponse = await apiFetch<BunnyVideoResponse>(
@@ -40,4 +48,48 @@ export const getVideoUploadUrl = withErrorHandling(async () => {
       accessKey: ACCESS_KEYS.streamAccessKey,
     };
   });
+
+export const getThumbnailUploadUrl = withErrorHandling(
+    async (videoId: string) => {
+      const timestampedFileName = `${Date.now()}-${videoId}-thumbnail`;
+      const uploadUrl = `${THUMBNAIL_STORAGE_BASE_URL}/thumbnails/${timestampedFileName}`;
+      const cdnUrl = `${THUMBNAIL_CDN_URL}/thumbnails/${timestampedFileName}`;
+  
+      return {
+        uploadUrl,
+        cdnUrl,
+        accessKey: ACCESS_KEYS.storageAccessKey,
+      };
+    }
+  );
+  
+  export const saveVideoDetails = withErrorHandling(
+    async (videoDetails: VideoDetails) => {
+      const userId = await getSessionUserId();
+    //   await validateWithArcjet(userId);
+      await apiFetch(
+         `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoDetails.videoId}`,
+        {
+          method: "POST",
+          bunnyType: "stream",
+          body: {
+            title: videoDetails.title,
+            description: videoDetails.description,
+          },
+        }
+      );
+  
+    //   const now = new Date();
+      await db.insert(videos).values({
+        ...videoDetails,
+        videoUrl: `${BUNNY.EMBED_URL}/${BUNNY_LIBRARY_ID}/${videoDetails.videoId}`,
+        userId,
+        createdAt: new Date,
+        updatedAt: new Date,
+      });
+  
+      revalidatePaths(["/"]);
+      return { videoId: videoDetails.videoId };
+    }
+  );
 
