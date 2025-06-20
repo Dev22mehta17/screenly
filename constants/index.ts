@@ -47,6 +47,11 @@ export const DEFAULT_RECORDING_CONFIG = {
   audioBitsPerSecond: 128000,
   videoBitsPerSecond: 2500000,
 };
+// export const ACCESS_KEYS = {
+//   streamAccessKey: process.env.BUNNY_STREAM_ACCESS_KEY!,
+// };
+// console.log("Stream Access Key:", process.env.BUNNY_STREAM_ACCESS_KEY);
+
  
 export const dummyCards = [
   {
