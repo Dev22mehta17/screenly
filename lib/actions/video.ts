@@ -30,31 +30,9 @@ const revalidatePaths = (paths: string[]) => {
   };
   
 
-//   export const getVideoUploadUrl = withErrorHandling(async () => {
-//     await getSessionUserId();
-//     const videoResponse = await apiFetch<BunnyVideoResponse>(
-//       `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos`,
-//       {
-//         method: "POST",
-//         bunnyType: "stream",
-//         body: { title: "Temp Title", collectionId: "" },
-//       }
-//     );
-  
-//     const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoResponse.guid}`;
-//     return {
-//       videoId: videoResponse.guid,
-//       uploadUrl,
-//       accessKey: ACCESS_KEYS.streamAccessKey,
-//     };
-//   });
-export const getVideoUploadUrl = withErrorHandling(async () => {
-    console.log("🔐 Getting session user ID...");
+  export const getVideoUploadUrl = withErrorHandling(async () => {
     await getSessionUserId();
-  
-    console.log("📡 Sending request to Bunny to create video...");
-  
-    const res = await apiFetch<BunnyVideoResponse>(
+    const videoResponse = await apiFetch<BunnyVideoResponse>(
       `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos`,
       {
         method: "POST",
@@ -63,28 +41,14 @@ export const getVideoUploadUrl = withErrorHandling(async () => {
       }
     );
   
-    console.log("📥 Bunny video creation response:", res);
-  
-    if (!res || !res.guid) {
-      console.error("❌ Bunny API did not return a guid. Response:", res);
-      throw new Error("Failed to get video upload credentials");
-    }
-  
-    if (!ACCESS_KEYS.streamAccessKey) {
-      console.error("❌ Missing Bunny stream access key.");
-      throw new Error("Failed to get video upload credentials");
-    }
-  
-    const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${res.guid}`;
-    console.log("✅ Upload URL and access key ready:", { uploadUrl });
-  
+    const uploadUrl = `${VIDEO_STREAM_BASE_URL}/${BUNNY_LIBRARY_ID}/videos/${videoResponse.guid}`;
     return {
-      videoId: res.guid,
+      videoId: videoResponse.guid,
       uploadUrl,
       accessKey: ACCESS_KEYS.streamAccessKey,
     };
   });
-  
+
   
 
 export const getThumbnailUploadUrl = withErrorHandling(

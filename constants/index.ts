@@ -4,8 +4,8 @@ export const MAX_THUMBNAIL_SIZE = 10 * 1024 * 1024;
 export const BUNNY = {
   
   STORAGE_BASE_URL: "https://storage.bunnycdn.com/dev-screenly",
-  CDN_URL: "https://DEV-Screenly.b-cdn.net",
-  TRANSCRIPT_URL: "https://vz-522e9d2e-251.b-cdn.net",
+  CDN_URL: "https://DEV-sc.b-cdn.net",
+  TRANSCRIPT_URL: "https://vz-93d7b54d-c35.b-cdn.net",
   EMBED_URL: "https://iframe.mediadelivery.net/embed",
   STREAM_BASE_URL: "https://video.bunnycdn.com/library",
 };
